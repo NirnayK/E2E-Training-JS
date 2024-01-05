@@ -37,7 +37,7 @@ function addRepeater() {
   </span>
   <div class="list">
     <label for="Option">Option:</label>
-    <input class="option" type="text" name="Option" required />
+    <input class="option" type="text" name="Option"  />
     <button class="removeOption" onclick="removeOption(this)">-</button>
   </div>
 </div>
@@ -156,7 +156,7 @@ function cleanPage() {
         </span>
         <div class="list">
           <label for="Option">Option:</label>
-          <input class="option" type="text" name="Option" required />
+          <input class="option" type="text" name="Option"  />
           <button class="removeOption" onclick="removeOption(this)">-</button>
         </div>
       </div>
