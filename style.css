@@ -1,0 +1,79 @@
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+.add,
+.remove,
+.addOption {
+    font-size: 1.25rem;
+    height: 1.75rem;
+    width: 1.75rem;
+}
+
+#mainForm {
+    border: 1px solid black;
+}
+
+.repeater {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+#generateForm {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.onSelect {
+    display: none;
+}
+
+.list {
+    margin: 0.5rem;
+}
+
+.newForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+    gap: 1rem;
+    border: 1px solid black;
+}
+
+.newSpan {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem;
+}

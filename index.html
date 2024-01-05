@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js"></script>
+    <title>Form Generator</title>
+  </head>
+  <body>
+    <h1>Form Builders</h1>
+    <div id="mainForm">
+      <div id="1" class="repeater">
+        <div class="box">
+          <label for="elementName">Element Name:</label>
+          <input class="elementName" type="text" name="elementName" required />
+          <label for="elementType">Element Type:</label>
+          <select
+            class="elementType"
+            name="elementType"
+            onchange="handleSelectChange(this)"
+          >
+            <option selected value="text">Text</option>
+            <option value="email">Email</option>
+            <option value="password">Password</option>
+            <option value="select">Select</option>
+          </select>
+          <label for="elementRequired">Element Required:</label>
+          <select class="elementRequired" name="elementRequired">
+            <option selected value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <button class="remove" onclick="removeRepeater(this)">-</button>
+          <button class="add" onclick="addRepeater()">+</button>
+        </div>
+        <div class="onSelect">
+          <span class="options">
+            <p>State your options</p>
+            <button class="addOption" onclick="addOption(this)">+</button>
+          </span>
+          <div class="list">
+            <label for="Option">Option:</label>
+            <input class="option" type="text" name="Option" />
+            <button class="removeOption" onclick="removeOption(this)">-</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="generateForm" onclick="formGenerator()">Generate Form</button>
+  </body>
+</html>
