@@ -8,42 +8,43 @@ function addRepeater() {
   newRepeater.id = repeaterCount;
 
   newRepeater.innerHTML = `
-        <div class="box">
-          <label for="elementName">Element Name:</label>
-          <input class="elementName" type="text" name="elementName" required />
-          <label for="elementType">Element Type:</label>
-          <select
-            class="elementType"
-            name="elementType"
-            onchange="handleSelectChange(this)"
-          >
-            <option selected value="text">Text</option>
-            <option value="email">Email</option>
-            <option value="password">Password</option>
-            <option value="select">Select</option>
-          </select>
-          <label for="elementRequired">Element Required:</label>
-          <select class="elementRequired" name="elementRequired">
-            <option selected value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-          <button class="remove" onclick="removeRepeater(this)">-</button>
-          <button class="add" onclick="addRepeater()">+</button>
-        </div>
-        <div class="onSelect">
-          <span class="options">
-            <p>State your options</p>
-            <button class="addOption" onclick="addOption(this)">+</button>
-          </span>
-          <div class="list">
-            <label for="Option">Option:</label>
-            <input type="text" name="Option" />
-            <button class="removeOption" onclick="removeOption(this)">-</button>
-          </div>
-        </div>
+  <div class="box">
+  <label for="elementName">Element Name:</label>
+  <input class="elementName" type="text" name="elementName" required />
+  <label for="elementType">Element Type:</label>
+  <select
+    class="elementType"
+    name="elementType"
+    onchange="handleSelectChange(this)"
+  >
+    <option selected value="text">Text</option>
+    <option value="email">Email</option>
+    <option value="password">Password</option>
+    <option value="select">Select</option>
+  </select>
+  <label for="elementRequired">Element Required:</label>
+  <select class="elementRequired" name="elementRequired">
+    <option selected value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+  <button class="remove" onclick="removeRepeater(this)">-</button>
+  <button class="add" onclick="addRepeater()">+</button>
+</div>
+<div class="onSelect">
+  <span class="options">
+    <p>Add your options</p>
+    <button class="addOption" onclick="addOption(this)">+</button>
+  </span>
+  <div class="list">
+    <label for="Option">Option:</label>
+    <input class="option" type="text" name="Option" required />
+    <button class="removeOption" onclick="removeOption(this)">-</button>
+  </div>
+</div>
   `;
 
-  mainForm.appendChild(newRepeater);
+  const generateFormButton = document.getElementById('generateForm');
+  mainForm.insertBefore(newRepeater, generateFormButton);
 }
 
 function removeRepeater(button) {
@@ -123,45 +124,45 @@ function cleanPage() {
   let body = document.getElementsByTagName('body')[0];
 
   body.innerHTML = `
-  <h1>Form Builders</h1>
-    <div id="mainForm">
-      <div id="1" class="repeater">
-        <div class="box">
-          <label for="elementName">Element Name:</label>
-          <input class="elementName" type="text" name="elementName" required />
-          <label for="elementType">Element Type:</label>
-          <select
-            class="elementType"
-            name="elementType"
-            onchange="handleSelectChange(this)"
-          >
-            <option selected value="text">Text</option>
-            <option value="email">Email</option>
-            <option value="password">Password</option>
-            <option value="select">Select</option>
-          </select>
-          <label for="elementRequired">Element Required:</label>
-          <select class="elementRequired" name="elementRequired">
-            <option selected value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-          <button class="remove" onclick="removeRepeater(this)">-</button>
-          <button class="add" onclick="addRepeater()">+</button>
-        </div>
-        <div class="onSelect">
-          <span class="options">
-            <p>State your options</p>
-            <button class="addOption" onclick="addOption(this)">+</button>
-          </span>
-          <div class="list">
-            <label for="Option">Option:</label>
-            <input class="option" type="text" name="Option" />
-            <button class="removeOption" onclick="removeOption(this)">-</button>
-          </div>
+  <h1>Form Builder</h1>
+  <form id="mainForm" onsubmit="formGenerator()">
+    <div id="1" class="repeater">
+      <div class="box">
+        <label for="elementName">Element Name:</label>
+        <input class="elementName" type="text" name="elementName" required />
+        <label for="elementType">Element Type:</label>
+        <select
+          class="elementType"
+          name="elementType"
+          onchange="handleSelectChange(this)"
+        >
+          <option selected value="text">Text</option>
+          <option value="email">Email</option>
+          <option value="password">Password</option>
+          <option value="select">Select</option>
+        </select>
+        <label for="elementRequired">Element Required:</label>
+        <select class="elementRequired" name="elementRequired">
+          <option selected value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <button class="remove" onclick="removeRepeater(this)">-</button>
+        <button class="add" onclick="addRepeater()">+</button>
+      </div>
+      <div class="onSelect">
+        <span class="options">
+          <p>Add your options</p>
+          <button class="addOption" onclick="addOption(this)">+</button>
+        </span>
+        <div class="list">
+          <label for="Option">Option:</label>
+          <input class="option" type="text" name="Option" required />
+          <button class="removeOption" onclick="removeOption(this)">-</button>
         </div>
       </div>
     </div>
-    <button id="generateForm" onclick="formGenerator()">Generate Form</button>
+    <button id="generateForm" type="submit">Generate Form</button>
+  </form>
     `
 
 };
@@ -202,17 +203,15 @@ function displayForm(form) {
         newInput.setAttribute('required', 'required');
       }
 
-
       if (form[i].elementType === 'email') {
         newInput.setAttribute('type', 'email');
-      }
-      else if (form[i].elementType === 'password') {
+      } else if (form[i].elementType === 'password') {
         newInput.setAttribute('type', 'password');
-      }
-      else {
+        newInput.setAttribute('pattern', '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+      } else {
         newInput.setAttribute('type', 'text');
+        newInput.setAttribute('pattern', '^[a-zA-Z]+$');
       }
-
 
       newSpan.appendChild(newLabel);
       newSpan.appendChild(newInput);
@@ -229,8 +228,4 @@ function displayForm(form) {
 
   const body = document.getElementsByTagName('body')[0];
   body.appendChild(newForm);
-}
-
-function submitForm() {
-
 }

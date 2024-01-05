@@ -8,8 +8,8 @@
     <title>Form Generator</title>
   </head>
   <body>
-    <h1>Form Builders</h1>
-    <div id="mainForm">
+    <h1>Form Builder</h1>
+    <form id="mainForm" onsubmit="formGenerator()">
       <div id="1" class="repeater">
         <div class="box">
           <label for="elementName">Element Name:</label>
@@ -35,17 +35,17 @@
         </div>
         <div class="onSelect">
           <span class="options">
-            <p>State your options</p>
+            <p>Add your options</p>
             <button class="addOption" onclick="addOption(this)">+</button>
           </span>
           <div class="list">
             <label for="Option">Option:</label>
-            <input class="option" type="text" name="Option" />
+            <input class="option" type="text" name="Option" required />
             <button class="removeOption" onclick="removeOption(this)">-</button>
           </div>
         </div>
       </div>
-    </div>
-    <button id="generateForm" onclick="formGenerator()">Generate Form</button>
+      <button id="generateForm" type="submit">Generate Form</button>
+    </form>
   </body>
 </html>

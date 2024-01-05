@@ -10,14 +10,27 @@ body {
 
 .add,
 .remove,
-.addOption {
-    font-size: 1.25rem;
+.addOption,
+.removeOption,
+.elementName {
+
     height: 1.75rem;
     width: 1.75rem;
 }
 
+.elementName,
+.elementType,
+.elementRequired {
+    width: fit-content;
+}
+
 #mainForm {
     border: 1px solid black;
+    display: flex;
+    font-size: 1.25rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .repeater {
@@ -76,4 +89,43 @@ body {
     align-items: center;
     gap: 1rem;
     margin: 0.5rem;
+}
+
+.add,
+.addOption {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.25rem;
+}
+
+.remove,
+.removeOption {
+    background-color: hwb(0 22% 14%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.25rem;
+}
+
+#generateForm {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5%;
+    font-size: 1.25rem;
+}
+
+#generateForm:hover,
+.add:hover,
+.addOption:hover {
+    background-color: rgb(2, 93, 2);
+    cursor: pointer;
+}
+
+.remove:hover,
+.removeOption:hover {
+    background-color: hwb(0 15% 44%);
+    cursor: pointer;
 }
