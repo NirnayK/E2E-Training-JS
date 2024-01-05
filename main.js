@@ -1,6 +1,6 @@
 let repeaterCount = 1;
 
-function addRepeater() {
+function addRepeater(event) {
   repeaterCount++;
   const mainForm = document.getElementById('mainForm');
   const newRepeater = document.createElement('div');
@@ -28,7 +28,7 @@ function addRepeater() {
     <option value="no">No</option>
   </select>
   <button class="remove" onclick="removeRepeater(this)">-</button>
-  <button class="add" onclick="addRepeater()">+</button>
+  <button class="add" onclick="addRepeater(this)">+</button>
 </div>
 <div class="onSelect">
   <span class="options">
@@ -37,7 +37,7 @@ function addRepeater() {
   </span>
   <div class="list">
     <label for="Option">Option:</label>
-    <input class="option" type="text" name="Option"  />
+    <input class="option" type="text" name="Option" />
     <button class="removeOption" onclick="removeOption(this)">-</button>
   </div>
 </div>
@@ -49,16 +49,15 @@ function addRepeater() {
 
 function removeRepeater(button) {
   if (repeaterCount === 1) return;
-  if (repeaterCount > 1) repeaterCount--;
   const repeaterToRemove = button.closest('.repeater');
   repeaterToRemove.remove();
+  repeaterCount--;
 }
 
 function handleSelectChange(selectElement) {
   // Get the selected value
   const parentElementId = selectElement.closest('.repeater').id;
   const onSelectDiv = document.getElementById(parentElementId).querySelector('.onSelect');
-  console.log(onSelectDiv);
   if (selectElement.value === 'select') {
     onSelectDiv.style.display = 'block';
   } else {
@@ -67,16 +66,15 @@ function handleSelectChange(selectElement) {
 }
 
 function addOption(button) {
-  const repeater = button.closest('.onSelect');
+  const onSelect = button.closest('.onSelect');
   const newList = document.createElement('div');
   newList.classList.add('list');
   newList.innerHTML = `
     <label for="Option">Option:</label>
-    <input type="text" name="Option" />
+    <input class="option" type="text" name="Option" />
     <button class="removeOption" onclick="removeOption(this)">-</button>
     `;
-  repeater.appendChild(newList);
-
+  onSelect.appendChild(newList);
 }
 
 function removeOption(button) {
@@ -84,7 +82,8 @@ function removeOption(button) {
   optionToRemove.remove();
 }
 
-function formGenerator() {
+function formGenerator(event) {
+  event.preventDefault();
   let form = [];
   let repeaters = document.getElementsByClassName('repeater');
   for (let it = 0; it < repeaters.length; it++) {
@@ -116,6 +115,7 @@ function formGenerator() {
 
   cleanPage();
   displayForm(form);
+  return false;
 }
 
 function cleanPage() {
@@ -125,51 +125,47 @@ function cleanPage() {
 
   body.innerHTML = `
   <h1>Form Builder</h1>
-  <form id="mainForm" onsubmit="formGenerator()">
-    <div id="1" class="repeater">
-      <div class="box">
-        <label for="elementName">Element Name:</label>
-        <input class="elementName" type="text" name="elementName" required />
-        <label for="elementType">Element Type:</label>
-        <select
-          class="elementType"
-          name="elementType"
-          onchange="handleSelectChange(this)"
-        >
-          <option selected value="text">Text</option>
-          <option value="email">Email</option>
-          <option value="password">Password</option>
-          <option value="select">Select</option>
-        </select>
-        <label for="elementRequired">Element Required:</label>
-        <select class="elementRequired" name="elementRequired">
-          <option selected value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-        <button class="remove" onclick="removeRepeater(this)">-</button>
-        <button class="add" onclick="addRepeater()">+</button>
-      </div>
-      <div class="onSelect">
-        <span class="options">
-          <p>Add your options</p>
-          <button class="addOption" onclick="addOption(this)">+</button>
-        </span>
-        <div class="list">
-          <label for="Option">Option:</label>
-          <input class="option" type="text" name="Option"  />
-          <button class="removeOption" onclick="removeOption(this)">-</button>
+    <form id="mainForm" onsubmit="formGenerator(event)" method="post">
+      <div id="1" class="repeater">
+        <div class="box">
+          <label for="elementName">Element Name:</label>
+          <input class="elementName" type="text" name="elementName" required />
+          <label for="elementType">Element Type:</label>
+          <select
+            class="elementType"
+            name="elementType"
+            onchange="handleSelectChange(this)"
+          >
+            <option selected value="text">Text</option>
+            <option value="email">Email</option>
+            <option value="password">Password</option>
+            <option value="select">Select</option>
+          </select>
+          <label for="elementRequired">Element Required:</label>
+          <select class="elementRequired" name="elementRequired">
+            <option selected value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <button class="remove" onclick="removeRepeater(this)">-</button>
+          <button class="add" onclick="addRepeater(this)">+</button>
+        </div>
+        <div class="onSelect">
+          <span class="options">
+            <p>Add your options</p>
+            <button class="addOption" onclick="addOption(this)">+</button>
+          </span>
+          <div class="list">
+            <label for="Option">Option:</label>
+            <input class="option" type="text" name="Option" />
+            <button class="removeOption" onclick="removeOption(this)">-</button>
+          </div>
         </div>
       </div>
-    </div>
-    <button id="generateForm" type="submit">Generate Form</button>
-  </form>
+      <button id="generateForm" type="submit">Generate Form</button>
+    </form>
     `
 
 };
-
-function typePassword() {
-  const pswdRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
-}
 
 function displayForm(form) {
   const newForm = document.createElement('form');
@@ -177,12 +173,13 @@ function displayForm(form) {
   for (let i = 0; i < form.length; i++) {
     const newSpan = document.createElement('span');
     const newLabel = document.createElement('label');
-    newLabel.innerText = form[i].elementName;
+    newLabel.innerText = form[i].elementName + ":";
 
     if (form[i].elementType === 'select') {
       const newSelect = document.createElement('select');
       newLabel.setAttribute('for', form[i].elementName);
       newSelect.setAttribute('name', form[i].elementName);
+
       if (form[i].elementRequired === 'yes') {
         newSelect.setAttribute('required', 'required');
       }
@@ -191,6 +188,7 @@ function displayForm(form) {
         newOption.innerText = form[i].options[j];
         newSelect.appendChild(newOption);
       }
+
       newSpan.appendChild(newLabel);
       newSpan.appendChild(newSelect);
     }

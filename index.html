@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>Form Builder</h1>
-    <form id="mainForm" onsubmit="formGenerator()">
+    <form id="mainForm" onsubmit="formGenerator(event)" method="post">
       <div id="1" class="repeater">
         <div class="box">
           <label for="elementName">Element Name:</label>
@@ -31,7 +31,7 @@
             <option value="no">No</option>
           </select>
           <button class="remove" onclick="removeRepeater(this)">-</button>
-          <button class="add" onclick="addRepeater()">+</button>
+          <button class="add" onclick="addRepeater(this)">+</button>
         </div>
         <div class="onSelect">
           <span class="options">
